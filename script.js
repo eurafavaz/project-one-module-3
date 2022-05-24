@@ -44,6 +44,8 @@ async function findAllPaletas() {
 
   // A visualização das minhas imagens não funcionou com o MAP, embora o caminho esteja correto:
 
+  const isEdit = true;
+
   paletas.map(function (paleta) {
     return document.getElementById("paletaList").insertAdjacentHTML(
       "beforeend",
@@ -57,7 +59,7 @@ async function findAllPaletas() {
               <img class="PaletaListaItem__foto" src=${paleta.foto} alt="Paleta de ${paleta.sabor}" />
             <div>
               <button onclick="">Apagar</button>
-              <button onclick="abrirModalCadastro()">Editar</button>
+              <button onclick="abrirModalCadastro(${isEdit})">Editar</button>
             </div>
             </div>`
     );
@@ -110,12 +112,26 @@ async function findOnePaleta() {
 
 const modalElement = document.querySelector("#overlay");
 
-function abrirModalCadastro() {
+function abrirModalCadastro(isEdit = false) {
 
-  const paletaId = document.querySelector("paletaId").innerText;
+  const paletaId = document.querySelector("paletaId")
 
   modalElement.style.display = "flex"
+
+    const headerModal = document.querySelector("header-modal").innerText
+  
+    // if (isEdit) {
+    //   headerModal.innerText = "Atualizar uma paleta";
+    // } else {
+    //   headerModal.innerText = "Cadastrar uma paleta";
+    // }
+
+    isEdit 
+    ? headerModal.innerText = "Atualizar uma paleta" // se a resposta for true
+    : headerModal.innerText = "Cadastrar uma paleta" // se a resposta for true
 }
+
+
 
 function fecharModalCadastro(){
   modalElement.style.display = "none"
